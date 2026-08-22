@@ -31,6 +31,7 @@ footnote on my page. Open right now:
 | [genai-prices#584](https://github.com/pydantic/genai-prices/pull/584) | `grok-4.6` missing entirely — pricing it raises `LookupError` |
 | [genai-prices#581](https://github.com/pydantic/genai-prices/pull/581) | DeepSeek V4 peak/off-peak repricing |
 | [models.dev#5277](https://github.com/anomalyco/models.dev/pull/5277) | `context_over_200k` documented as a flat 200K; 193 of 357 entries carrying it aren't |
+| [models.dev#5280](https://github.com/anomalyco/models.dev/pull/5280) | DeepInfra cache-read price derived two different ways; 1 of 17 tier segments disagrees with itself |
 | [litellm#37930](https://github.com/BerriAI/litellm/pull/37930) | `wandb/*` prices stored as $/1M in a per-token field — 100,000x off |
 | [litellm#37932](https://github.com/BerriAI/litellm/pull/37932) | 3 realtime rows whose cache-read price contradicts their own schema |
 | [llm-prices#67](https://github.com/simonw/llm-prices/pull/67), [#68](https://github.com/simonw/llm-prices/pull/68), [#71](https://github.com/simonw/llm-prices/pull/71) | Missing cached-input prices for 16 Claude/Gemini models; DeepSeek V4 repricing |
