@@ -18,7 +18,9 @@ I could find prints one number per row anyway, and the gap is usually a factor o
   separates two models whose list prices look identical.
 
 Every claim on that page says where its number came from and on what date, and the weights
-ship in the JSON so you can recompute with your own token mix.
+ship in the JSON so you can recompute with your own token mix. Table, data and generator are in
+[llm-api-pricing](https://github.com/xyzs996/llm-api-pricing); if a number looks wrong, an issue
+there is the fastest way to get it changed.
 
 ### The same table, as a bill
 
@@ -38,8 +40,10 @@ a day behind it, and it does the three things a rate card structurally cannot:
 - **Your mix, not the median.** The default is a coding agent's ~95.6% cache-read share. Slide
   it to what your own logs say and the ordering of the cheapest ten changes.
 
+Source and issues: [llm-cost-calculator](https://github.com/xyzs996/llm-cost-calculator).
+
 The clock cases that trip implementations are published separately as a fixture anyone can
-depend on — [deepseek-peak-offpeak-vectors](https://github.com/xyzs996/deepseek-peak-offpeak-vectors),
+depend on — [deepseek-peak-hours](https://github.com/xyzs996/deepseek-peak-hours),
 plain JSON, no dependency, usable from any language. One upstream project has already adopted
 them.
 
