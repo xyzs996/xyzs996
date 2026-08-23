@@ -27,7 +27,7 @@ file, nothing to install, no account. It reads the same JSON as the table above,
 a day behind it, and it does the three things a rate card structurally cannot:
 
 - **Peak/off-peak resolved live.** DeepSeek's weekend rule changed on 2026-08-23: off-peak all
-  weekend, at half price. The page says which phase you are in right now, what the same call
+  weekend, at half price ([which hours, and why every summary I could find gets it wrong](https://xyzs996.github.io/llm-api-pricing/deepseek-peak-hours.html)). The page says which phase you are in right now, what the same call
   costs in the other one, and how long until it flips. The Beijing weekend runs Fri 16:00 → Sun
   16:00 UTC, and both official peak windows sit clear of that seam — so a `getUTCDay()`
   implementation returns *identical prices for all 168 hours of a week* and no test written
@@ -46,7 +46,12 @@ them.
 ### Sending the corrections upstream
 
 Where the same defect exists in a public catalog, it goes back as a PR rather than staying a
-footnote on my page. Open right now:
+footnote on my page.
+
+Landed: [waveloom#6](https://github.com/Menfre01/waveloom/issues/6) read DeepSeek's weekday off
+the unshifted UTC instant, so the Beijing weekend was mis-classified for eight hours at each
+end. Fixed in [v0.7.7](https://github.com/Menfre01/waveloom/releases/tag/v0.7.7) with a
+regression test pinning both weekend windows. Open right now:
 
 | | |
 |---|---|
