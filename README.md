@@ -52,10 +52,17 @@ them.
 Where the same defect exists in a public catalog, it goes back as a PR rather than staying a
 footnote on my page.
 
-Landed: [waveloom#6](https://github.com/Menfre01/waveloom/issues/6) read DeepSeek's weekday off
-the unshifted UTC instant, so the Beijing weekend was mis-classified for eight hours at each
-end. Fixed in [v0.7.7](https://github.com/Menfre01/waveloom/releases/tag/v0.7.7) with a
-regression test pinning both weekend windows. Open right now:
+Landed, all the same defect — the weekday is read off the raw UTC instant, so the Beijing
+weekend is billed at 2x for eight hours at each end:
+
+| | |
+|---|---|
+| [CodeWhale#5545](https://github.com/Hmbown/CodeWhale/pull/5545) | merged |
+| [TokenTracker#505](https://github.com/xiufengsun/TokenTracker/pull/505) | merged |
+| [OpenCowork#160](https://github.com/AIDotNet/OpenCowork/pull/160) | merged |
+| [waveloom#6](https://github.com/Menfre01/waveloom/issues/6) | shipped in [v0.7.7](https://github.com/Menfre01/waveloom/releases/tag/v0.7.7), with a regression test pinning both weekend windows |
+
+Open right now:
 
 | | |
 |---|---|
@@ -64,8 +71,7 @@ regression test pinning both weekend windows. Open right now:
 | [genai-prices#581](https://github.com/pydantic/genai-prices/pull/581) | DeepSeek V4 peak/off-peak repricing |
 | [models.dev#5277](https://github.com/anomalyco/models.dev/pull/5277) | `context_over_200k` documented as a flat 200K; 193 of 357 entries carrying it aren't |
 | [models.dev#5280](https://github.com/anomalyco/models.dev/pull/5280) | DeepInfra cache-read price derived two different ways; 1 of 17 tier segments disagrees with itself |
-| [litellm#37930](https://github.com/BerriAI/litellm/pull/37930) | `wandb/*` prices stored as $/1M in a per-token field — 100,000x off |
-| [litellm#37932](https://github.com/BerriAI/litellm/pull/37932) | 3 realtime rows whose cache-read price contradicts their own schema |
+| [litellm#38015](https://github.com/BerriAI/litellm/pull/38015) | 13 `wandb/*` rows priced 100,000x too high; three rows in the same block already use the right unit |
 | [llm-prices#67](https://github.com/simonw/llm-prices/pull/67), [#68](https://github.com/simonw/llm-prices/pull/68), [#71](https://github.com/simonw/llm-prices/pull/71) | Missing cached-input prices for 16 Claude/Gemini models; DeepSeek V4 repricing |
 
 ### The other lists
