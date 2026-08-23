@@ -20,6 +20,29 @@ I could find prints one number per row anyway, and the gap is usually a factor o
 Every claim on that page says where its number came from and on what date, and the weights
 ship in the JSON so you can recompute with your own token mix.
 
+### The same table, as a bill
+
+**[Put your own token counts in](https://xyzs996.github.io/llm-cost-calculator/)** — one HTML
+file, nothing to install, no account. It reads the same JSON as the table above, so it is never
+a day behind it, and it does the three things a rate card structurally cannot:
+
+- **Peak/off-peak resolved live.** DeepSeek's weekend rule changed on 2026-08-23: off-peak all
+  weekend, at half price. The page says which phase you are in right now, what the same call
+  costs in the other one, and how long until it flips. The Beijing weekend runs Fri 16:00 → Sun
+  16:00 UTC, and both official peak windows sit clear of that seam — so a `getUTCDay()`
+  implementation returns *identical prices for all 168 hours of a week* and no test written
+  against the published windows can tell.
+- **The long-context cliff.** One token past a threshold reprices **every** token in the
+  request, including the ones below it. At `gemini-3.1-pro-preview`'s 200 000 line, one extra
+  token takes the same call from $0.2060 to $0.4090.
+- **Your mix, not the median.** The default is a coding agent's ~95.6% cache-read share. Slide
+  it to what your own logs say and the ordering of the cheapest ten changes.
+
+The clock cases that trip implementations are published separately as a fixture anyone can
+depend on — [deepseek-peak-offpeak-vectors](https://github.com/xyzs996/deepseek-peak-offpeak-vectors),
+plain JSON, no dependency, usable from any language. One upstream project has already adopted
+them.
+
 ### Sending the corrections upstream
 
 Where the same defect exists in a public catalog, it goes back as a PR rather than staying a
