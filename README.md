@@ -44,8 +44,9 @@ Source and issues: [llm-cost-calculator](https://github.com/xyzs996/llm-cost-cal
 
 The clock cases that trip implementations are published separately as a fixture anyone can
 depend on — [deepseek-peak-hours](https://github.com/xyzs996/deepseek-peak-hours),
-plain JSON, no dependency, usable from any language. One upstream project has already adopted
-them.
+plain JSON, no dependency, usable from any language. Seven projects have taken a fix found by
+running them, and the bundled harness scores nine published DeepSeek billing plugins against the
+same vectors: on 2026-08-23, two passed.
 
 ### Where the numbers came from
 
@@ -75,10 +76,17 @@ weekend is billed at 2x for eight hours at each end:
 
 | | |
 |---|---|
+| [OmniRoute#11210](https://github.com/diegosouzapw/OmniRoute/pull/11210) | merged — the price table's own comment said the discount ran every day |
+| [LangAlpha#365](https://github.com/ginlix-ai/LangAlpha/pull/365) | merged, with the schedule lifted out of the code into the provider manifest and two test files pinning it |
+| [llmgateway#3776](https://github.com/theopenco/llmgateway/pull/3776) | merged — a test that fails if the off-peak day is ever read off the UTC clock again |
 | [CodeWhale#5545](https://github.com/Hmbown/CodeWhale/pull/5545) | merged |
 | [TokenTracker#505](https://github.com/xiufengsun/TokenTracker/pull/505) | merged |
 | [OpenCowork#160](https://github.com/AIDotNet/OpenCowork/pull/160) | merged |
 | [waveloom#6](https://github.com/Menfre01/waveloom/issues/6) | shipped in [v0.7.7](https://github.com/Menfre01/waveloom/releases/tag/v0.7.7), with a regression test pinning both weekend windows |
+
+And one that isn't the weekday defect: [dsh-meter#10](https://github.com/dshworks/dsh-meter/pull/10) —
+DeepSeek's vision variant has no flat-price history, so a feed builder that assumes one falls back to
+the wrong model and reports 3x.
 
 A different one closed with the field retired rather than the patch taken:
 [models.dev#5277](https://github.com/anomalyco/models.dev/pull/5277) argued that `context_over_200k`
