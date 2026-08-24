@@ -80,6 +80,13 @@ weekend is billed at 2x for eight hours at each end:
 | [OpenCowork#160](https://github.com/AIDotNet/OpenCowork/pull/160) | merged |
 | [waveloom#6](https://github.com/Menfre01/waveloom/issues/6) | shipped in [v0.7.7](https://github.com/Menfre01/waveloom/releases/tag/v0.7.7), with a regression test pinning both weekend windows |
 
+A different one closed with the field retired rather than the patch taken:
+[models.dev#5277](https://github.com/anomalyco/models.dev/pull/5277) argued that `context_over_200k`
+reads as a flat 200K threshold while 193 of the 357 entries carrying it use a different one. It was
+closed as superseded by [#5335](https://github.com/anomalyco/models.dev/pull/5335), which marks the
+field deprecated in the SDK types and points consumers at `tiers` for the real threshold. Same
+outcome from the consumer's side — the number that lied is no longer the one you're told to read.
+
 Open right now:
 
 | | |
@@ -87,12 +94,15 @@ Open right now:
 | [genai-prices#583](https://github.com/pydantic/genai-prices/pull/583) | 6 models priced as if long-context were a marginal tier; ~2x under-priced past the threshold |
 | [genai-prices#584](https://github.com/pydantic/genai-prices/pull/584) | `grok-4.6` missing entirely — pricing it raises `LookupError` |
 | [genai-prices#581](https://github.com/pydantic/genai-prices/pull/581) | DeepSeek V4 peak/off-peak repricing |
-| [models.dev#5277](https://github.com/anomalyco/models.dev/pull/5277) | `context_over_200k` documented as a flat 200K; 193 of 357 entries carrying it aren't |
+| [helicone#5791](https://github.com/Helicone/helicone/pull/5791) | Gemini 2.5 cache reads billed at 25% of input where Google charges 10% — a 2.5x overcharge, held over from the retired 2.0 rate; the repo's own 3.x entries already use 10% |
 | [models.dev#5280](https://github.com/anomalyco/models.dev/pull/5280) | DeepInfra cache-read price derived two different ways; 1 of 17 tier segments disagrees with itself |
+| [opencode#44223](https://github.com/anomalyco/opencode/pull/44223) | a hardcoded legacy 200k price overrides the model's real context tier |
+| [opencode#44229](https://github.com/anomalyco/opencode/pull/44229) | cache-write tokens added on top of the prompt count when OpenAI already counts them inside it |
 | [litellm#38015](https://github.com/BerriAI/litellm/pull/38015) | 13 `wandb/*` rows priced 100,000x too high; three rows in the same block already use the right unit |
 | [litellm#38016](https://github.com/BerriAI/litellm/pull/38016) | two `azure/gpt-realtime` rows bill a cache read at the full input price; their OpenAI twin doesn't |
 | [llm-prices#67](https://github.com/simonw/llm-prices/pull/67), [#68](https://github.com/simonw/llm-prices/pull/68), [#71](https://github.com/simonw/llm-prices/pull/71) | Missing cached-input prices for 16 Claude/Gemini models; DeepSeek V4 repricing |
 | [litellm#38062](https://github.com/BerriAI/litellm/issues/38062) | four `gemini *-latest` aliases bill a cache read at the deprecated 2.0 rate — 25% of input where Google charges 10%; the same alias sits in the file twice with the same input price and two different cache prices |
+| [litellm#38064](https://github.com/BerriAI/litellm/issues/38064) | `cost-based-routing` never reads the cache-read price, so on an exact input+output tie the 10x-cheaper provider wins only if you happened to list it first |
 | [llmgateway#3782](https://github.com/theopenco/llmgateway/issues/3782) | provider selection scores on input and output only and never reads `cachedInputPrice`, so cache-heavy traffic routes to the more expensive provider — up to 2.6x on their own price data |
 
 ### The other lists
