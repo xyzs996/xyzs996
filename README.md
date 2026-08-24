@@ -99,6 +99,8 @@ Open right now:
 
 | | |
 |---|---|
+| [dify-official-plugins#3736](https://github.com/langgenius/dify-official-plugins/pull/3736) | Gemini 3.6 Flash priced at the standard rate that starts 2027-01-01 instead of the introductory rate running now — 2x, and it turns correct by itself in January. The sibling file one directory over has the right number and writes down why. The existing test pinned the wrong one |
+| [dify-official-plugins#3737](https://github.com/langgenius/dify-official-plugins/issues/3737) | Both Gemini `-latest` aliases are byte-copies of the models Google's January changelog said they pointed to — stale price *and* stale parameter card. The alias charges $0.50/$3.00; not one of the three models it could resolve to costs that |
 | [lobehub#18647](https://github.com/lobehub/lobehub/pull/18647) | Two `gemini-*-latest` aliases are priced as the model they used to point at, not the one their own description names — one of them at a rate that doesn't start until 2027. Plus Gemini 2.5 cache reads at the retired 25% rate. The test that would have caught it existed, but only pinned the one alias that happens to be right |
 | [continue#13184](https://github.com/continuedev/continue/issues/13184) | `"gpt-4.1".startsWith("gpt-4")` is true, and `"gpt-4"` is the most expensive row in the table — so the whole 4.1 family bills at 15x–300x |
 | [genai-prices#583](https://github.com/pydantic/genai-prices/pull/583) | 6 models priced as if long-context were a marginal tier; ~2x under-priced past the threshold |
