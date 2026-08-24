@@ -47,9 +47,27 @@ depend on — [deepseek-peak-hours](https://github.com/xyzs996/deepseek-peak-hou
 plain JSON, no dependency, usable from any language. One upstream project has already adopted
 them.
 
+### Where the numbers came from
+
+The table is the artifact; these are the arguments behind it. Each one leads with a figure you
+can check, and each is posted as a thread with a reply box — if a number is wrong, that is the
+place to say so.
+
+| | |
+|---|---|
+| [Chinese models are not 2x cheaper once your agent starts caching](https://github.com/xyzs996/llm-api-pricing/discussions/66) | On list price the median Chinese model is 2.47x cheaper. Repriced at a coding agent's real token mix it is 1.51x. Nothing expired — the comparison was reading the input column, and an agent spends 95.6% of its tokens on cache reads. |
+| [Does your DeepSeek cost code read the weekday off the shifted clock?](https://github.com/xyzs996/llm-api-pricing/discussions/44) | The bug behind the four merged fixes below. A `getUTCDay()` implementation returns identical prices for all 168 hours of the week, so no test written against the published windows can catch it. Four projects had it; each was found by running the same eight timestamps. |
+| [The two best AI code reviewers score the same. One costs $1.43 a run, the other $9.05](https://github.com/xyzs996/llm-api-pricing/discussions/36) | 43.1% vs 41.2% Pass@1 on ReactBench — two points apart, 6.3x apart on price. |
+| [Your AI coding bill scales with your repo, not your output](https://github.com/xyzs996/llm-api-pricing/discussions/56) | The dominant cost is re-reading project context, not the code the model writes. That is why the bill surprises people in month three and why file layout turns out to be cost engineering. |
+| [1.6 billion free tokens is a compression ratio, not a strategy](https://github.com/xyzs996/llm-api-pricing/discussions/12) | The advertised quota is 10,000 tokens compressed to 1,080, times a free tier. It tells you nothing about which model answers your next request, which is the only thing your bill depends on. |
+
+All 53 are indexed at [the writing list](https://xyzs996.github.io/llm-api-pricing/), rendered
+from the same repo as the table.
+
 ### Sending the corrections upstream
 
-Where the same defect exists in a public catalog, it goes back as a PR rather than staying a
+Where the same defect exists in a public catalog, it goes back as a PR — or, where I cannot
+sign the project's CLA, as an issue with the worked example attached — rather than staying a
 footnote on my page.
 
 Landed, all the same defect — the weekday is read off the raw UTC instant, so the Beijing
@@ -74,6 +92,8 @@ Open right now:
 | [litellm#38015](https://github.com/BerriAI/litellm/pull/38015) | 13 `wandb/*` rows priced 100,000x too high; three rows in the same block already use the right unit |
 | [litellm#38016](https://github.com/BerriAI/litellm/pull/38016) | two `azure/gpt-realtime` rows bill a cache read at the full input price; their OpenAI twin doesn't |
 | [llm-prices#67](https://github.com/simonw/llm-prices/pull/67), [#68](https://github.com/simonw/llm-prices/pull/68), [#71](https://github.com/simonw/llm-prices/pull/71) | Missing cached-input prices for 16 Claude/Gemini models; DeepSeek V4 repricing |
+| [litellm#38062](https://github.com/BerriAI/litellm/issues/38062) | four `gemini *-latest` aliases bill a cache read at the deprecated 2.0 rate — 25% of input where Google charges 10%; the same alias sits in the file twice with the same input price and two different cache prices |
+| [llmgateway#3782](https://github.com/theopenco/llmgateway/issues/3782) | provider selection scores on input and output only and never reads `cachedInputPrice`, so cache-heavy traffic routes to the more expensive provider — up to 2.6x on their own price data |
 
 ### The other lists
 
