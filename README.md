@@ -99,6 +99,8 @@ Open right now:
 
 | | |
 |---|---|
+| [lobehub#18647](https://github.com/lobehub/lobehub/pull/18647) | Two `gemini-*-latest` aliases are priced as the model they used to point at, not the one their own description names — one of them at a rate that doesn't start until 2027. Plus Gemini 2.5 cache reads at the retired 25% rate. The test that would have caught it existed, but only pinned the one alias that happens to be right |
+| [continue#13184](https://github.com/continuedev/continue/issues/13184) | `"gpt-4.1".startsWith("gpt-4")` is true, and `"gpt-4"` is the most expensive row in the table — so the whole 4.1 family bills at 15x–300x |
 | [genai-prices#583](https://github.com/pydantic/genai-prices/pull/583) | 6 models priced as if long-context were a marginal tier; ~2x under-priced past the threshold |
 | [genai-prices#584](https://github.com/pydantic/genai-prices/pull/584) | `grok-4.6` missing entirely — pricing it raises `LookupError` |
 | [genai-prices#581](https://github.com/pydantic/genai-prices/pull/581) | DeepSeek V4 peak/off-peak repricing |
